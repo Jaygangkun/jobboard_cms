@@ -1,0 +1,21 @@
+.mt-30{
+    margin-top: 30px;
+}
+
+.employer-wrap{
+    display: flex;
+}
+
+.employer__img{
+    width: 100px;
+    margin-right: 20px;
+}
+
+.employer__name{
+    color: #23527c;
+    font-weight: bold;
+}
+
+.employer__location{
+    color: #777777;
+}
