@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://172.16.1.45:8915';
+// $config['base_url'] = 'http://172.16.1.45:8915';
+$config['base_url'] = 'http://teenstreet.tdbapply.com/';
 
 /*
 |--------------------------------------------------------------------------
