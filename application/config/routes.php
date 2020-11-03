@@ -53,8 +53,15 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['admin/setting'] = 'AdminController/setting';
+// $route['admin/setting'] = 'AdminController/setting';
 $route['admin/employers_import'] = 'AdminController/employersImport';
 $route['admin/employers'] = 'AdminController/employers';
 $route['admin/employer_edit'] = 'AdminController/employerEdit';
+
 $route['admin/fields'] = 'AdminController/fields';
+$route['admin/fields_edit'] = 'AdminController/fieldsEdit';
+
+$route['admin/site_new'] = 'AdminController/siteNew';
+$route['admin/site_edit'] = 'AdminController/siteEdit';
+$route['admin/site_list'] = 'AdminController/siteList';
+$route['admin'] = 'AdminController/dashboard';

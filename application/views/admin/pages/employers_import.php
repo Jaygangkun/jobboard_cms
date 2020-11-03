@@ -9,9 +9,21 @@
     <div class="box box-primary">
         <div class="box-body">
             <div class="row">
-                <div class="col-lg-12">
-                    <button type="submit" class="btn btn-primary">Import</button>
-                    <button type="submit" class="btn btn-success">Save</button>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Site</label>
+                        <select class="form-control">
+                            <option> - Select - </option>
+                            <option>Nursing Job Now</option>
+                            <option>44 Careers</option>
+                            <option>Titus Transport</option>
+                            <option>The Driver Board</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
                 </div>
             </div>
             <div class="row mt-30">

@@ -70,13 +70,25 @@
 				<section class="sidebar">
 					<!-- sidebar menu: : style can be found in sidebar.less -->
 					<ul class="sidebar-menu">
-                        <li class="treeview <?php echo $menu == 'setting' ? 'active' : '' ?>">
+                        <!-- <li class="treeview <?php echo $root_menu == 'setting' ? 'active' : '' ?>">
 							<a href="/admin/setting">
                                 <i class="fa fa-cog"></i>
                                 <span>Setting</span>
 							</a>
-						</li>
-						<li class="treeview <?php echo $menu == 'employers' ? 'active' : '' ?>">
+						</li> -->
+						<li class="treeview <?php echo $root_menu == 'sites' ? 'active' : '' ?>">
+							<a href="/admin/employers_import">
+                                <i class="fa fa-institution"></i> <span>Sites</span>
+                                <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="<?php echo $sub_menu == 'site_new' ? 'active' : '' ?>"><a href="/admin/site_new"><i class="fa fa-circle-o"></i> New </a></li>
+								<li class="<?php echo $sub_menu == 'site_list' ? 'active' : '' ?>"><a href="/admin/site_list"><i class="fa fa-circle-o"></i> List </a></li>
+							</ul>
+                        </li>
+						<li class="treeview <?php echo $root_menu == 'employers' ? 'active' : '' ?>">
 							<a href="/admin/employers_import">
                                 <i class="fa fa-institution"></i> <span>Employers</span>
                                 <span class="pull-right-container">
@@ -84,11 +96,11 @@
                                 </span>
 							</a>
 							<ul class="treeview-menu">
-								<li class="<?php echo $page == 'employers_import' ? 'active' : '' ?>"><a href="/admin/employers_import"><i class="fa fa-circle-o"></i> Import From Jobboard</a></li>
-								<li class="<?php echo $page == 'employers_manage' ? 'active' : '' ?>"><a href="/admin/employers"><i class="fa fa-circle-o"></i> Manage</a></li>
+								<li class="<?php echo $sub_menu == 'employers_import' ? 'active' : '' ?>"><a href="/admin/employers_import"><i class="fa fa-circle-o"></i> Import From Jobboard</a></li>
+								<li class="<?php echo $sub_menu == 'employers_manage' ? 'active' : '' ?>"><a href="/admin/employers"><i class="fa fa-circle-o"></i> Manage</a></li>
 							</ul>
                         </li>
-                        <li class="treeview <?php echo $menu == 'fields' ? 'active' : '' ?>">
+                        <li class="treeview <?php echo $root_menu == 'fields' ? 'active' : '' ?>">
                             <a href="/admin/fields">
                                 <i class="fa fa-tasks"></i> <span>Custom Fields</span>
                                 <span class="pull-right-container">
@@ -96,7 +108,7 @@
                                 </span>
 							</a>
                             <ul class="treeview-menu">
-								<li class="<?php echo $page == 'fields' ? 'active' : '' ?>"><a href="/admin/fields"><i class="fa fa-circle-o"></i> Manage</a></li>
+								<li class="<?php echo $sub_menu == 'fields' ? 'active' : '' ?>"><a href="/admin/fields"><i class="fa fa-circle-o"></i> Manage</a></li>
 							</ul>
 						</li>
 					</ul>
