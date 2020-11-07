@@ -23,3 +23,15 @@
 .employer__location{
     color: #777777;
 }
+
+.overlay-wrapper{
+    display: none;
+}
+
+.loading .overlay-wrapper{
+    display: block;
+}
+
+.action-edit-btn{
+    margin-right: 5px;
+}

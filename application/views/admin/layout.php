@@ -42,6 +42,8 @@
 		<script src="<?= base_url() ?>assets/js/app.min.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="<?= base_url() ?>assets/js/demo.js"></script>
+
+		<script src="<?= base_url() ?>assets/js/jbcms.js"></script>
 	</head>
 	<body class="hold-transition skin-blue sidebar-mini">
 		<div class="wrapper">
@@ -120,6 +122,11 @@
                 <?php 
                 $this->view($view);
                 ?>
+				<div class="overlay-wrapper">
+					<div class="overlay">
+						<i class="fa fa-refresh fa-spin"></i>
+					</div>
+				</div>
 			</div>
 			<!-- /.content-wrapper -->
 		</div>

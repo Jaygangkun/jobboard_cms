@@ -56,12 +56,28 @@ $route['translate_uri_dashes'] = FALSE;
 // $route['admin/setting'] = 'AdminController/setting';
 $route['admin/employers_import'] = 'AdminController/employersImport';
 $route['admin/employers'] = 'AdminController/employers';
-$route['admin/employer_edit'] = 'AdminController/employerEdit';
+$route['admin/employers/([0-9]+)'] = 'AdminController/siteEmployers/$1';
+$route['admin/employer_edit/([0-9]+)'] = 'AdminController/employerEdit/$1';
 
 $route['admin/fields'] = 'AdminController/fields';
-$route['admin/fields_edit'] = 'AdminController/fieldsEdit';
+$route['admin/fields_edit/([0-9]+)'] = 'AdminController/fieldsEdit/$1';
 
 $route['admin/site_new'] = 'AdminController/siteNew';
-$route['admin/site_edit'] = 'AdminController/siteEdit';
+$route['admin/site_edit/([0-9]+)'] = 'AdminController/siteEdit/$1';
 $route['admin/site_list'] = 'AdminController/siteList';
 $route['admin'] = 'AdminController/dashboard';
+
+
+$route['admin_api/site_new'] = 'AdminAPIController/siteNew';
+$route['admin_api/site_update'] = 'AdminAPIController/siteUpdate';
+$route['admin_api/site_delete'] = 'AdminAPIController/siteDelete';
+
+$route['admin_api/employers_import'] = 'AdminAPIController/employersImport';
+$route['admin_api/employers_import_save'] = 'AdminAPIController/employersImportSave';
+$route['admin_api/employers_load'] = 'AdminAPIController/employersLoad';
+$route['admin_api/employer_update'] = 'AdminAPIController/employerUpdate';
+
+$route['admin_api/field_add'] = 'AdminAPIController/fieldAdd';
+$route['admin_api/employers_fields_load'] = 'AdminAPIController/employersFieldsLoad';
+$route['admin_api/field_update'] = 'AdminAPIController/fieldUpdate';
+$route['admin_api/field_delete'] = 'AdminAPIController/fieldDelete';

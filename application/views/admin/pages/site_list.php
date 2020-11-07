@@ -20,98 +20,48 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>
-                                <div class="site-name-wrap">
-                                    <a href="https://www.healthcarejobnow.com/">Nursing Job Now</a>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-employers-wrap">
-                                    30
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-api-status text-green">
-                                    <i class="fa fa-check"></i>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-action">
-                                    <a type="button" href="/admin/site_edit" class="btn btn-info">Edit</a>
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <div class="site-name-wrap">
-                                    <a href="https://www.44careers.com/">44 Careers</a>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-employers-wrap">
-                                    17
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-api-status text-green">
-                                    <i class="fa fa-check"></i>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-action">
-                                    <a type="button" href="/admin/site_edit" class="btn btn-info">Edit</a>
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <div class="site-name-wrap">
-                                    <a href="https://www.drivefortitus.com/">Titus Transport</a>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-employers-wrap">
-                                    23
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-api-status text-red">
-                                    <i class="fa fa-close"></i>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-action">
-                                    <a type="button" href="/admin/site_edit" class="btn btn-info">Edit</a>
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <div class="site-name-wrap">
-                                    <a href="https://www.drivefortitus.com/">The Driver Board</a>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-employers-wrap">
-                                    10
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-api-status text-green">
-                                    <i class="fa fa-check"></i>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="site-action">
-                                    <a type="button" href="/admin/site_edit" class="btn btn-info">Edit</a>
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                </div>
-                            </th>
-                        </tr>
+                        <?php
+                        foreach($sites as $site){
+                            ?>
+                            <tr>
+                                <th>
+                                    <div class="site-name-wrap">
+                                        <a href="<?php echo $site['url']?>"><?php echo $site['name']?></a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="site-employers-wrap">
+                                        <?php echo $site['employers']?>
+                                    </div>
+                                </th>
+                                <th>
+                                    <?php
+                                    if($site['api_key_checked'] != null && $site['api_key_checked'] == '1'){
+                                        ?>
+                                        <div class="site-api-status text-green">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                        <?php
+                                    }
+                                    else{
+                                        ?>
+                                        <div class="site-api-status text-red">
+                                            <i class="fa fa-close"></i>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </th>
+                                <th>
+                                    <div class="site-action">
+                                        <a type="button" href="/admin/site_edit/<?php echo $site['id']?>" class="btn btn-info">Edit</a>
+                                        <button type="button" class="btn btn-danger btn-site-delete" site-id="<?php echo $site['id'] ?>">Delete</button>
+                                    </div>
+                                </th>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </tbody>
                     <tfoot>
                         <tr>

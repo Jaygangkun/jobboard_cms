@@ -11,20 +11,24 @@
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Site Name</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="" value="Nursing Job Now">
+                        <label for="site_name">Site Name</label>
+                        <input type="email" class="form-control" id="site_name" placeholder="" value="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Site URL</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="" value="https://www.healthcarejobnow.com/">
+                        <label for="site_url">Site URL</label>
+                        <input type="email" class="form-control" id="site_url" placeholder="" value="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Site API Key</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="" value="x1ierXobNrvLpCwmi2BePwtt">
+                        <label for="site_url">Jobboard URL</label>
+                        <input type="email" class="form-control" id="jobboard_url" placeholder="" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="site_api_key">Site API Key</label>
+                        <input type="email" class="form-control" id="site_api_key" placeholder="" value="">
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-primary" id="btn_site_add">Add</button>
                 </div>
             </div>
         </div>
