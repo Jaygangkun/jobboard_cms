@@ -25,8 +25,8 @@ class AdminAPIController extends CI_Controller {
     public function siteDelete()
 	{
 		$this->Sites->delete($_POST['id']);
-	}
-
+    }
+    
     public function employersImport(){
         if(isset($_POST['site_id'])){
             $site = $this->Sites->get($_POST['site_id']);
@@ -146,4 +146,13 @@ class AdminAPIController extends CI_Controller {
 
         echo json_encode($response);
     }
+
+    public function jobboardIntegrateCode()
+	{
+        $data = array();
+
+        $data['site_url'] = str_replace('http://', 'https://', base_url());
+        
+        $this->load->view('admin/snippets/jb_integrate_code', $data);
+	}
 }

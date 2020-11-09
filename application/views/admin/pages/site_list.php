@@ -5,8 +5,29 @@
     </h1>
 </section>
 <!-- Main content -->
+<div class="modal fade" id="site_code_dlg" tabindex="-1" role="dialog" aria-labelledby="site_code_dlg" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="fields_dlg_title">Jobboard Integrate Code</h4>
+            </div>
+            <div class="modal-body">
+                <div id="site_code">
+                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg
+                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="content">
-<div class="row">
+    <div class="row">
         <div class="col-lg-12">
         <div class="box box-primary">
             <div class="box-body">
@@ -54,6 +75,7 @@
                                 </th>
                                 <th>
                                     <div class="site-action">
+                                        <button type="button" class="btn btn-primary btn-site-view-code" site-id="<?php echo $site['id'] ?>">View Code</button>
                                         <a type="button" href="/admin/site_edit/<?php echo $site['id']?>" class="btn btn-info">Edit</a>
                                         <button type="button" class="btn btn-danger btn-site-delete" site-id="<?php echo $site['id'] ?>">Delete</button>
                                     </div>

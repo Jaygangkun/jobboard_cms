@@ -99,6 +99,20 @@
         }
     })
 
+    $(document).on('click', '.btn-site-view-code', function(){
+        $.ajax({
+            url: '/admin_api/jb_integrate_code',
+            type: 'POST',
+            data: {
+                id: $(this).attr('site-id'),
+            },
+            success: function(response){
+                $('#site_code').html(response);
+                $('#site_code_dlg').modal('toggle');
+            }
+        })
+    })
+
     // for employers pages
     $(document).on('click', '#btn_employers_import', function(){
         if($('#site').val() == ''){
