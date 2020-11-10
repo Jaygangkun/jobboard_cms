@@ -152,6 +152,7 @@ class AdminAPIController extends CI_Controller {
         $data = array();
 
         $data['site_url'] = str_replace('http://', 'https://', base_url());
+        $data['site_id'] = $_POST['site_id'];
         
         $this->load->view('admin/snippets/jb_integrate_code', $data);
 	}

@@ -104,7 +104,7 @@
             url: '/admin_api/jb_integrate_code',
             type: 'POST',
             data: {
-                id: $(this).attr('site-id'),
+                site_id: $(this).attr('site-id'),
             },
             success: function(response){
                 $('#site_code').html(response);

@@ -57,7 +57,8 @@
                                 </th>
                                 <th>
                                     <?php
-                                    if($site['api_key_checked'] != null && $site['api_key_checked'] == '1'){
+                                    // if($site['api_key_checked'] != null && $site['api_key_checked'] == '1'){
+                                    if($site['api_key'] != null && $site['api_key'] != ''){
                                         ?>
                                         <div class="site-api-status text-green">
                                             <i class="fa fa-check"></i>

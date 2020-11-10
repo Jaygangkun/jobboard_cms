@@ -84,5 +84,5 @@ $route['admin_api/field_delete'] = 'AdminAPIController/fieldDelete';
 
 $route['admin_api/jb_integrate_code'] = 'AdminAPIController/jobboardIntegrateCode';
 
-$route['script/(:any)'] = 'JBController/generate/$1';
+$route['script/(:any)/(:any)'] = 'JBController/generate/$1/$2';
 $route['call_ts'] = 'JBController/callTS';

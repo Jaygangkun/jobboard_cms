@@ -47,9 +47,9 @@ Class Employers extends CI_Model
 		$this->db->query($query);
 	}
 
-	public function findByURL($url){
-		$query = "SELECT * FROM employers WHERE `url` LIKE '%".$url."' AND site_id <> ''";
-
+	public function findByURL($site_id, $url){
+		$query = "SELECT * FROM employers WHERE `site_id`='".$site_id."' AND `url` LIKE '%".$url."'";
+		
 		$query_result = $this->db->query($query)->result_array();
 
 		return $query_result;

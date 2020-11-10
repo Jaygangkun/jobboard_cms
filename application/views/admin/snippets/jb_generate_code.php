@@ -175,7 +175,20 @@
                                 $field_name = $field['name'];
                                 $field_var_name = str_replace(' ', '_', strtolower($field_name));
                                 ?>
-                                var custom_<?php echo $field_var_name?> = jQuery('[name="applicant[custom_field_answers][<?php echo $field_var_name?>]"]').val();
+                                // var custom_<?php echo $field_var_name?> = jQuery('[name="applicant[custom_field_answers][<?php echo $field_var_name?>]"]').val();
+
+                                var c1_text_label = jQuery('#applyModal .control-label:contains("<?php echo $field['name']?>")');
+                                var custom_<?php echo $field_var_name?>;
+                                custom_<?php echo $field_var_name?> = jQuery(c1_text_label).parents('.form-group').find('.form-control').val();
+
+
+                                var c1_radio_label = jQuery('#applyModal .control-label:contains("<?php echo $field['name']?>")');
+                                var c1_radio_label_name = jQuery(c1_radio_label).parents('.form-group').find('[type="radio"]').attr('name');
+
+                                if(typeof c1_radio_label_name != 'undefined'){
+                                    custom_<?php echo $field_var_name?> = jQuery('[name="' + c1_radio_label_name + '"]:checked').val()
+                                }
+                                
                                 if(custom_<?php echo $field_var_name?> == ''){
                                     return;
                                 }
@@ -192,9 +205,10 @@
                             if(company_id != ''){
                                 jQuery.ajax({
                                     // url: 'https://teenstreet.tdbapply.com/post.php',
-                                    url: 'https://teenstreet.tdbapply.com/call_ts',
+                                    url: '<?php echo $site_url?>call_ts',
                                     type: 'POST',
                                     data: {
+                                        employer_id: <?php echo $employer_id?>,
                                         email: email,
                                         fname: fname,
                                         lname: lname,

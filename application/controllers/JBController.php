@@ -11,13 +11,16 @@ class JBController extends CI_Controller {
 		$this->load->model("Fields");
 	}
 	
-	public function generate($employer_url)
+	public function generate($site_id, $employer_url)
 	{
 		$data = array();
+		$data['site_url'] = str_replace('http://', 'https://', base_url());
+		$data['site_id'] = $site_id;
 		$data['employer_url'] = $employer_url;
 
 		// find employer id
-		$employer = $this->Employers->findByURL($employer_url);
+		$employer = $this->Employers->findByURL($site_id, $employer_url);
+		
 		if(count($employer) > 0){
 			$employer = $employer[0];
 
@@ -25,6 +28,7 @@ class JBController extends CI_Controller {
 			
 			// getting custom fields
 			$fields = $this->Fields->load($employer['id']);
+			$data['employer_id'] = $employer['id'];
 			$data['fields'] = $fields;
 		}
 
@@ -32,7 +36,7 @@ class JBController extends CI_Controller {
 	}
 
 	public function callTS(){
-		// header('Access-Control-Allow-Origin: *');  
+		header('Access-Control-Allow-Origin: *');  
 		echo json_encode($_POST);die();
 		$curl = curl_init();
 
@@ -40,6 +44,12 @@ class JBController extends CI_Controller {
 			$company_id = $_POST['company_id'];
 		}
 		else{
+			echo "Company id doens't exist";
+			die();
+		}
+
+		if(!isset($_POST['employer_id'])){
+			echo "Employer id doens't exist";
 			die();
 		}
 
@@ -85,34 +95,29 @@ class JBController extends CI_Controller {
 			$custom_state = '';
 		}
 
-		if(isset($_POST['custom_zip'])){
-			$custom_zip = $_POST['custom_zip'];
-		}
-		else{
-			$custom_zip = '';
+		$fields = $this->Fields->load($_POST['employer_id']);
+		$display_fields = '';
+		foreach($fields as $field){
+			if(strtolower($field['name']) == 'state' || strtolower($field['name']) == 'city' || strtolower($field['name']) == 'phone'){
+				continue;
+			}
+
+			$field_var_name = str_replace(' ', '_', strtolower($field['name']));
+
+			if(isset($_POST["custom_".$field_var_name])){
+				$field_value = $_POST["custom_".$field_var_name];
+			}
+			else{
+				$field_value = '';
+			}
+
+			$display_fields .= "<DisplayField>\r\n                <DisplayPrompt>".$field['name']."</DisplayPrompt>\r\n                <DisplayValue>".$field_value."</DisplayValue>\r\n            </DisplayField>\r\n";
+			
 		}
 
-		if(isset($_POST['custom_are_you_23_years_of_age_or_older'])){
-			$custom_are_you_23_years_of_age_or_older = $_POST['custom_are_you_23_years_of_age_or_older'];
-		}
-		else{
-			$custom_are_you_23_years_of_age_or_older = '';
-		}
+		$post_data = "<TenstreetData>\r\n    <!--Authentication Node ONLY required for standard POST NOT for SOAP calls. Tenstreet will provide this node of data to you after a vetting & introduction phone call to your organization. -->\r\n    <Authentication>\r\n        <ClientId>303</ClientId>\r\n        <Password>lS%!r3pjy@0SzMs!8Ln</Password>\r\n        <Service>subject_upload</Service>\r\n    </Authentication>\r\n    <Mode>PROD</Mode>\r\n    <Source>TheDriverBoardLead</Source>\r\n    <CompanyId>".$company_id."</CompanyId>\r\n    <PersonalData>\r\n        <PersonName>\r\n            <GivenName>".$fname."</GivenName>\r\n            <FamilyName>".$lname."</FamilyName>\r\n        </PersonName>\r\n        <PostalAddress>\r\n            <Municipality>".$custom_city."</Municipality>\r\n            <Region>".$custom_state."</Region>\r\n        </PostalAddress>\r\n        <ContactData>\r\n            <InternetEmailAddress>".$email."</InternetEmailAddress>\r\n            <PrimaryPhone>".$custom_phone."</PrimaryPhone>\r\n        </ContactData>\r\n    </PersonalData>\r\n    <ApplicationData>\r\n        <DisplayFields>\r\n            ".$display_fields."        </DisplayFields>\r\n    </ApplicationData>\r\n</TenstreetData>";
 
-		if(isset($_POST['custom_do_you_have_a_cdl'])){
-			$custom_do_you_have_a_cdl = $_POST['custom_do_you_have_a_cdl'];
-		}
-		else{
-			$custom_do_you_have_a_cdl = '';
-		}
-
-		if(isset($_POST['custom_previous_tractor_trailer_experience_if_required'])){
-			$custom_previous_tractor_trailer_experience_if_required = $_POST['custom_previous_tractor_trailer_experience_if_required'];
-		}
-		else{
-			$custom_previous_tractor_trailer_experience_if_required = '';
-		}
-						
+		// echo $post_data;
 
 		curl_setopt_array($curl, array(
 			CURLOPT_URL => "https://dashboard.tenstreet.com/post/",
@@ -123,7 +128,7 @@ class JBController extends CI_Controller {
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "POST",
-			CURLOPT_POSTFIELDS =>"<TenstreetData>\r\n    <!--Authentication Node ONLY required for standard POST NOT for SOAP calls. Tenstreet will provide this node of data to you after a vetting & introduction phone call to your organization. -->\r\n    <Authentication>\r\n        <ClientId>303</ClientId>\r\n        <Password>lS%!r3pjy@0SzMs!8Ln</Password>\r\n        <Service>subject_upload</Service>\r\n    </Authentication>\r\n    <Mode>PROD</Mode>\r\n    <Source>TheDriverBoardLead</Source>\r\n    <CompanyId>".$company_id."</CompanyId>\r\n    <PersonalData>\r\n        <PersonName>\r\n            <GivenName>".$fname."</GivenName>\r\n            <FamilyName>".$lname."</FamilyName>\r\n        </PersonName>\r\n        <PostalAddress>\r\n            <Municipality>".$custom_city."</Municipality>\r\n            <Region>".$custom_state."</Region>\r\n        </PostalAddress>\r\n        <ContactData>\r\n            <InternetEmailAddress>".$email."</InternetEmailAddress>\r\n            <PrimaryPhone>".$custom_phone."</PrimaryPhone>\r\n        </ContactData>\r\n    </PersonalData>\r\n    <ApplicationData>\r\n        <DisplayFields>\r\n            <DisplayField>\r\n                <DisplayPrompt>Class A CDL</DisplayPrompt>\r\n                <DisplayValue>".$custom_do_you_have_a_cdl."</DisplayValue>\r\n            </DisplayField>\r\n            <DisplayField>\r\n                <DisplayPrompt>Years of tractor trailer experience</DisplayPrompt>\r\n                <DisplayValue>".$custom_previous_tractor_trailer_experience_if_required."</DisplayValue>\r\n            </DisplayField>\r\n            <DisplayField>\r\n                <DisplayPrompt>Are you 23 or older</DisplayPrompt>\r\n                <DisplayValue>".$custom_are_you_23_years_of_age_or_older."</DisplayValue>\r\n            </DisplayField>\r\n        </DisplayFields>\r\n    </ApplicationData>\r\n</TenstreetData>",
+			CURLOPT_POSTFIELDS =>$post_data,
 			CURLOPT_HTTPHEADER => array(
 				"Content-Type: application/xml"
 			),
