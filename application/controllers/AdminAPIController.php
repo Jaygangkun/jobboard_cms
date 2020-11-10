@@ -36,7 +36,7 @@ class AdminAPIController extends CI_Controller {
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                CURLOPT_URL => $site['jobboard_url']."api/v1/employers",
+                CURLOPT_URL => $site['jobboard_url']."api/v1/employers?page=1&per_page=250",
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
