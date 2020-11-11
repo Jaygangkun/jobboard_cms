@@ -452,4 +452,110 @@
         }
         
     })
+
+    // Login Page
+    function ValidateEmail(email) 
+    {
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    $(document).on('click', '#btn_login', function(){
+        if($('#email').val() == ''){
+            alert('Please input email');
+            $('#email').focus();
+            return;
+        }
+
+        if(!ValidateEmail($('#email').val())){
+            alert('Please input valid email');
+            $('#email').focus();
+            return;
+        }
+
+        if($('#password').val() == ''){
+            alert('Please input password');
+            $('#password').focus();
+            return;
+        }
+
+        $.ajax({
+            url: '/admin_api/login',
+            type: 'POST',
+            data: {
+                email: $('#email').val(),
+                password: $('#password').val()
+            },
+            success: function(response){
+                response = JSON.parse(response);
+                if(response.success){
+                    location.href="/admin";
+                }
+                else{
+                    alert('Please input correct login information');
+                }
+            }
+        })
+    })
+
+    $(document).on('click', '#btn_register', function(){
+        if($('#full_name').val() == ''){
+            alert('Please input full name');
+            $('#full_name').focus();
+            return;
+        }
+
+        if($('#email').val() == ''){
+            alert('Please input email');
+            $('#email').focus();
+            return;
+        }
+
+        if(!ValidateEmail($('#email').val())){
+            alert('Please input valid email');
+            $('#email').focus();
+            return;
+        }
+
+        if($('#password').val() == ''){
+            alert('Please input password');
+            $('#password').focus();
+            return;
+        }
+
+        if($('#rt_password').val() == ''){
+            alert('Please retype password');
+            $('#rt_password').focus();
+            return;
+        }
+
+        if($('#password').val() != $('#rt_password').val()){
+            alert('Please input correct retype password');
+            $('#rt_password').focus();
+            return;
+        }
+
+        $.ajax({
+            url: '/admin_api/register',
+            type: 'POST',
+            data: {
+                full_name: $('#full_name').val(),
+                email: $('#email').val(),
+                password: $('#password').val()
+            },
+            success: function(response){
+                response = JSON.parse(response);
+                if(response.success){
+                    location.href="/admin/login";
+                }
+                else{
+                    alert('Register Failed');
+                }
+            }
+        })
+    })
+
 })(jQuery)

@@ -25,6 +25,10 @@ class AdminController extends CI_Controller {
 
 	public function employersImport()
 	{
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+
 		$data = array();
 		$data['root_menu'] = 'employers';
 		$data['sub_menu'] = 'employers_import';
@@ -38,6 +42,10 @@ class AdminController extends CI_Controller {
 
 	public function employers()
 	{
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+
 		$data = array();
 		$data['root_menu'] = 'employers';
 		$data['sub_menu'] = 'employers_manage';
@@ -51,6 +59,10 @@ class AdminController extends CI_Controller {
 
 	public function siteEmployers($site_id)
 	{
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+
 		$data = array();
 		$data['root_menu'] = 'employers';
 		$data['sub_menu'] = 'employers_manage';
@@ -68,6 +80,10 @@ class AdminController extends CI_Controller {
 
 	public function fields()
 	{
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+
 		$data = array();
 		$data['root_menu'] = 'fields';
 		$data['sub_menu'] = 'fields';
@@ -81,6 +97,10 @@ class AdminController extends CI_Controller {
 
 	public function fieldsEdit($employer_id)
 	{
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+
 		$data = array();
 		$data['root_menu'] = 'fields';
 		$data['sub_menu'] = 'fields';
@@ -102,6 +122,10 @@ class AdminController extends CI_Controller {
 	}	
 
 	public function employerEdit($id){
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+
 		$data = array();
 		$data['root_menu'] = 'employers';
 		$data['sub_menu'] = '';
@@ -116,7 +140,10 @@ class AdminController extends CI_Controller {
 	}
 
 	public function siteNew(){
-		
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+
 		$data = array();
 		$data['root_menu'] = 'sites';
 		$data['sub_menu'] = 'site_new';
@@ -126,6 +153,10 @@ class AdminController extends CI_Controller {
 	}
 
 	public function siteEdit($id){
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+
 		$data = array();
 		$data['root_menu'] = 'sites';
 		$data['sub_menu'] = '';
@@ -140,6 +171,10 @@ class AdminController extends CI_Controller {
 	}
 
 	public function siteList(){
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+		
 		$data = array();
 		$data['root_menu'] = 'sites';
 		$data['sub_menu'] = 'site_list';
@@ -152,12 +187,27 @@ class AdminController extends CI_Controller {
 	}
 
 	public function dashboard(){
+
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+
 		$data = array();
 		$data['root_menu'] = 'sites';
 		$data['sub_menu'] = '';
 		$data['view'] = 'admin/pages/dashboard';
 		
-		$this->load->view('admin/layout', $data);
+		$this->load->view('admin/layout', $data);	
+		
+	}
+
+	public function login(){
+		unset($_SESSION['user_id']);
+		$this->load->view('admin/login');
+	}
+
+	public function register(){
+		$this->load->view('admin/register');
 	}
 
 }

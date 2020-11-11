@@ -54,6 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // $route['admin/setting'] = 'AdminController/setting';
+$route['admin/login'] = 'AdminController/login';
+$route['admin/register'] = 'AdminController/register';
 $route['admin/employers_import'] = 'AdminController/employersImport';
 $route['admin/employers'] = 'AdminController/employers';
 $route['admin/employers/([0-9]+)'] = 'AdminController/siteEmployers/$1';
@@ -83,6 +85,9 @@ $route['admin_api/field_update'] = 'AdminAPIController/fieldUpdate';
 $route['admin_api/field_delete'] = 'AdminAPIController/fieldDelete';
 
 $route['admin_api/jb_integrate_code'] = 'AdminAPIController/jobboardIntegrateCode';
+
+$route['admin_api/login'] = 'AdminAPIController/login';
+$route['admin_api/register'] = 'AdminAPIController/register';
 
 $route['script/(:any)/(:any)'] = 'JBController/generate/$1/$2';
 $route['call_ts'] = 'JBController/callTS';

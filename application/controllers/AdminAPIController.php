@@ -10,6 +10,7 @@ class AdminAPIController extends CI_Controller {
         $this->load->model("Sites");
         $this->load->model("Employers");
         $this->load->model("Fields");
+        $this->load->model("Users");
     }
     
 	public function siteNew()
@@ -155,5 +156,36 @@ class AdminAPIController extends CI_Controller {
         $data['site_id'] = $_POST['site_id'];
         
         $this->load->view('admin/snippets/jb_integrate_code', $data);
-	}
+    }
+    
+    public function login(){
+        $response = array(
+            'success' => false
+        );
+
+        $users = $this->Users->exist($_POST['email'], $_POST['password']);
+        if(count($users) > 0){
+            $response = array(
+                'success' => true
+            );
+
+            $_SESSION['user_id'] = $users[0]['id'];
+            $_SESSION['full_name'] = $users[0]['full_name'];
+        }
+        echo json_encode($response);
+    }
+
+    public function register(){
+        $response = array(
+            'success' => true
+        );
+
+        $user_id = $this->Users->add($_POST['full_name'], $_POST['email'], $_POST['password']);
+        if(!$user_id){
+            $response = array(
+                'success' => false
+            );  
+        }
+        echo json_encode($response);
+    }
 }
