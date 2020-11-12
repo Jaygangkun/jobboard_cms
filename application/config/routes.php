@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// Pages
 // $route['admin/setting'] = 'AdminController/setting';
 $route['admin/login'] = 'AdminController/login';
 $route['admin/register'] = 'AdminController/register';
@@ -67,9 +68,12 @@ $route['admin/fields_edit/([0-9]+)'] = 'AdminController/fieldsEdit/$1';
 $route['admin/site_new'] = 'AdminController/siteNew';
 $route['admin/site_edit/([0-9]+)'] = 'AdminController/siteEdit/$1';
 $route['admin/site_list'] = 'AdminController/siteList';
+
+$route['admin/logs'] = 'AdminController/logs';
 $route['admin'] = 'AdminController/dashboard';
 
 
+// Admin APIS
 $route['admin_api/site_new'] = 'AdminAPIController/siteNew';
 $route['admin_api/site_update'] = 'AdminAPIController/siteUpdate';
 $route['admin_api/site_delete'] = 'AdminAPIController/siteDelete';
@@ -89,5 +93,8 @@ $route['admin_api/jb_integrate_code'] = 'AdminAPIController/jobboardIntegrateCod
 $route['admin_api/login'] = 'AdminAPIController/login';
 $route['admin_api/register'] = 'AdminAPIController/register';
 
+$route['admin_api/log_load'] = 'AdminAPIController/logLoad';
+
+// Global APIS
 $route['script/(:any)/(:any)'] = 'JBController/generate/$1/$2';
 $route['call_ts'] = 'JBController/callTS';

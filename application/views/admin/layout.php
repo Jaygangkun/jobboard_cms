@@ -131,6 +131,17 @@
 								<li class="<?php echo $sub_menu == 'fields' ? 'active' : '' ?>"><a href="/admin/fields"><i class="fa fa-circle-o"></i> Manage</a></li>
 							</ul>
 						</li>
+						<li class="treeview <?php echo $root_menu == 'logs' ? 'active' : '' ?>">
+							<a href="/admin/logs">
+                                <i class="fa fa-institution"></i> <span>Logs</span>
+                                <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="<?php echo $sub_menu == 'log_list' ? 'active' : '' ?>"><a href="/admin/logs"><i class="fa fa-circle-o"></i> List </a></li>
+							</ul>
+                        </li>
 					</ul>
 				</section>
 				<!-- /.sidebar -->

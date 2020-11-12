@@ -9,6 +9,7 @@ class JBController extends CI_Controller {
 
 		$this->load->model("Employers");
 		$this->load->model("Fields");
+		$this->load->model("Logs");
 	}
 	
 	public function generate($site_id, $employer_url)
@@ -36,8 +37,7 @@ class JBController extends CI_Controller {
 	}
 
 	public function callTS(){
-		header('Access-Control-Allow-Origin: *');  
-		echo json_encode($_POST);die();
+		header('Access-Control-Allow-Origin: *');
 		$curl = curl_init();
 
 		if(isset($_POST['company_id'])){
@@ -115,7 +115,7 @@ class JBController extends CI_Controller {
 			
 		}
 
-		$post_data = "<TenstreetData>\r\n    <!--Authentication Node ONLY required for standard POST NOT for SOAP calls. Tenstreet will provide this node of data to you after a vetting & introduction phone call to your organization. -->\r\n    <Authentication>\r\n        <ClientId>303</ClientId>\r\n        <Password>lS%!r3pjy@0SzMs!8Ln</Password>\r\n        <Service>subject_upload</Service>\r\n    </Authentication>\r\n    <Mode>PROD</Mode>\r\n    <Source>TheDriverBoardLead</Source>\r\n    <CompanyId>".$company_id."</CompanyId>\r\n    <PersonalData>\r\n        <PersonName>\r\n            <GivenName>".$fname."</GivenName>\r\n            <FamilyName>".$lname."</FamilyName>\r\n        </PersonName>\r\n        <PostalAddress>\r\n            <Municipality>".$custom_city."</Municipality>\r\n            <Region>".$custom_state."</Region>\r\n        </PostalAddress>\r\n        <ContactData>\r\n            <InternetEmailAddress>".$email."</InternetEmailAddress>\r\n            <PrimaryPhone>".$custom_phone."</PrimaryPhone>\r\n        </ContactData>\r\n    </PersonalData>\r\n    <ApplicationData>\r\n        <DisplayFields>\r\n            ".$display_fields."        </DisplayFields>\r\n    </ApplicationData>\r\n</TenstreetData>";
+		$post_data = "<TenstreetData>\r\n    <!--Authentication Node ONLY required for standard POST NOT for SOAP calls. Tenstreet will provide this node of data to you after a vetting & introduction phone call to your organization. -->\r\n    <Authentication>\r\n        <ClientId>".$this->config->item('ts_client_id')."</ClientId>\r\n        <Password>".$this->config->item('ts_password')."</Password>\r\n        <Service>".$this->config->item('ts_service')."</Service>\r\n    </Authentication>\r\n    <Mode>".$this->config->item('ts_mode')."</Mode>\r\n    <Source>".$this->config->item('ts_source')."</Source>\r\n    <CompanyId>".$company_id."</CompanyId>\r\n    <PersonalData>\r\n        <PersonName>\r\n            <GivenName>".$fname."</GivenName>\r\n            <FamilyName>".$lname."</FamilyName>\r\n        </PersonName>\r\n        <PostalAddress>\r\n            <Municipality>".$custom_city."</Municipality>\r\n            <Region>".$custom_state."</Region>\r\n        </PostalAddress>\r\n        <ContactData>\r\n            <InternetEmailAddress>".$email."</InternetEmailAddress>\r\n            <PrimaryPhone>".$custom_phone."</PrimaryPhone>\r\n        </ContactData>\r\n    </PersonalData>\r\n    <ApplicationData>\r\n        <DisplayFields>\r\n            ".$display_fields."        </DisplayFields>\r\n    </ApplicationData>\r\n</TenstreetData>";
 
 		// echo $post_data;
 
@@ -137,6 +137,8 @@ class JBController extends CI_Controller {
 		$response = curl_exec($curl);
 
 		curl_close($curl);
+
+		$this->Logs->add('ts', json_encode($_POST), $response);
 		echo $response;
 	}
 }

@@ -210,4 +210,16 @@ class AdminController extends CI_Controller {
 		$this->load->view('admin/register');
 	}
 
+	public function logs(){
+		if(!isset($_SESSION['user_id'])){
+			redirect('/admin/login');
+		}
+		
+		$data = array();
+		$data['root_menu'] = 'logs';
+		$data['sub_menu'] = 'log_list';
+		$data['view'] = 'admin/pages/log_list';
+		
+		$this->load->view('admin/layout', $data);
+	}
 }

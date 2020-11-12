@@ -558,4 +558,41 @@
         })
     })
 
+    // Log Page
+    $(document).on('click', '#btn_logs_load', function(){
+        if($('#log_type').val() == ''){
+            alert('Please Select Type');
+            $('#log_type').focus();
+            return;
+        }
+        log_list_table.clear().draw();
+        $('body').addClass('loading');
+
+        $.ajax({
+            url: '/admin_api/log_load',
+            type: 'POST',
+            data: {
+                type: $('#log_type').val()
+            },
+            success: function(response){
+                var logs = JSON.parse(response);
+                
+                for(var index = 0; index < logs.length; index++){         
+                    log_list_table.row.add({
+                        DriverName: logs[index]['DriverName']['0'],
+                        ApplicationId: logs[index]['ApplicationId']['0'],
+                        TenstreetLogId: logs[index]['TenstreetLogId']['0'],
+                        Status: logs[index]['Status']['0'],
+                        CompanyPostedToId: logs[index]['CompanyPostedToId']['0'],
+                        DateTime: logs[index]['DateTime']['0'],
+                    });
+                }
+
+                log_list_table.draw(false);
+
+                $('body').removeClass('loading');
+
+            }
+        })
+    })
 })(jQuery)

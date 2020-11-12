@@ -11,6 +11,7 @@ class AdminAPIController extends CI_Controller {
         $this->load->model("Employers");
         $this->load->model("Fields");
         $this->load->model("Users");
+        $this->load->model("Logs");
     }
     
 	public function siteNew()
@@ -186,6 +187,28 @@ class AdminAPIController extends CI_Controller {
                 'success' => false
             );  
         }
+        echo json_encode($response);
+    }
+
+    public function logLoad(){
+        if(!isset($_POST['type'])){
+            die();
+        }
+
+        $logs = $this->Logs->load($_POST['type']);
+        $response = array();
+        foreach($logs as $log){
+            $ts_response = new SimpleXMLElement($log['response']);
+            $response[] = array(
+                'DriverName' => $ts_response->DriverName,
+                'ApplicationId' => $ts_response->ApplicationId,
+                'TenstreetLogId' => $ts_response->TenstreetLogId,
+                'Status' => $ts_response->Status,
+                'CompanyPostedToId' => $ts_response->CompanyPostedToId,
+                'DateTime' => $ts_response->DateTime
+            );
+        }
+
         echo json_encode($response);
     }
 }
