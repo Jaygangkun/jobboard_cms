@@ -64,6 +64,7 @@
 <script>
 var log_list_table;
 log_list_table = $("#log_list").DataTable({
+    "order": [[ 5, 'desc' ]],
     "columnDefs": [ 
         {
             "targets": 0,

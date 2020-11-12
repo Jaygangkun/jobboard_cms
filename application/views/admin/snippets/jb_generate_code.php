@@ -153,14 +153,10 @@
                         jQuery('.apply-message').html('');
                         $(this).attr('disabled', 'disabled');
                         $applyForm.submit();
-                    }
-                });
-				
-                $(document).ready(function(){
-                    <?php
-                    if(isset($employer) && $employer['ts_integrate'] == 'true'){
+
+                        <?php
+                        if(isset($employer) && $employer['ts_integrate'] == 'true'){
                         ?>
-                        $('#apply-submit').on('click', function() {
                             var email = jQuery('[name="applicant[email]"]').val();
                             var fname = jQuery('[name="applicant[fname]"]').val();
                             var lname = jQuery('[name="applicant[lname]"]').val();
@@ -238,26 +234,30 @@
                                     }
                                 });
                             }
-                            runActionIfAllowed('googleAnalytics', function() {
-                                ga('send', 'event', 'submit-apply-button', 'click', 'submit-apply-button-click');
-                                ga('jbo.send', 'event', 'submit-apply-button', 'click', 'submit-apply-button-click');
-                            });
-                        });
-                        $('#apply-cancel').on('click', function() {
-                            runActionIfAllowed('googleAnalytics', function() {
-                                ga('send', 'event', 'cancel-apply-button', 'click', 'cancel-apply-button-click');
-                                ga('jbo.send', 'event', 'cancel-apply-button', 'click', 'cancel-apply-button-click');
-                            });
-                        });
-                        
-                        $('#no_resume').on('click', function() {
-                            var $placeholder = $('#no_resume').attr("data-placeholder");
-                            $('#applicant_cover_letter').attr("placeholder", $placeholder);
-                        });
                     
                         <?php
+                        }
+                        ?>
+
+                        runActionIfAllowed('googleAnalytics', function() {
+                            ga('send', 'event', 'submit-apply-button', 'click', 'submit-apply-button-click');
+                            ga('jbo.send', 'event', 'submit-apply-button', 'click', 'submit-apply-button-click');
+                        });
                     }
-                    ?>
+                });
+				
+                $(document).ready(function(){
+                    $('#apply-cancel').on('click', function() {
+                        runActionIfAllowed('googleAnalytics', function() {
+                            ga('send', 'event', 'cancel-apply-button', 'click', 'cancel-apply-button-click');
+                            ga('jbo.send', 'event', 'cancel-apply-button', 'click', 'cancel-apply-button-click');
+                        });
+                    });
+                    
+                    $('#no_resume').on('click', function() {
+                        var $placeholder = $('#no_resume').attr("data-placeholder");
+                        $('#applicant_cover_letter').attr("placeholder", $placeholder);
+                    });
                 });
                 
                 // DROP DOWN JS - this is also in dropdown.js, but that code won't be accessible from the modal
