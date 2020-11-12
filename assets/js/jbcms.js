@@ -253,6 +253,8 @@
         load_employers_table.clear().draw();
         $('body').addClass('loading');
 
+        $('#site_id').val($('#site').val());
+
         $.ajax({
             url: '/admin_api/employers_load',
             type: 'POST',
@@ -298,6 +300,23 @@
                 location.href="/admin/employers/" + $('#site_id').val();
             }
         })
+    })
+
+    $(document).on('click', '.btn-employer-delete', function(){
+        if(confirm('Are you sure to delete')){
+            $('body').addClass('loading');
+            $.ajax({
+                url: '/admin_api/employer_delete',
+                type: 'POST',
+                data: {
+                    id: $(this).attr('id'),
+                },
+                success: function(response){
+                    alert('Successfully Deleted!');
+                    location.href="/admin/employers/" + $('#site_id').val();
+                }
+            })
+        }
     })
 
     // for fields pages

@@ -82,6 +82,7 @@ $route['admin_api/employers_import'] = 'AdminAPIController/employersImport';
 $route['admin_api/employers_import_save'] = 'AdminAPIController/employersImportSave';
 $route['admin_api/employers_load'] = 'AdminAPIController/employersLoad';
 $route['admin_api/employer_update'] = 'AdminAPIController/employerUpdate';
+$route['admin_api/employer_delete'] = 'AdminAPIController/employerDelete';
 
 $route['admin_api/field_add'] = 'AdminAPIController/fieldAdd';
 $route['admin_api/employers_fields_load'] = 'AdminAPIController/employersFieldsLoad';

@@ -54,4 +54,9 @@ Class Employers extends CI_Model
 
 		return $query_result;
 	}
+
+	public function delete($id){
+		$query = "DELETE  FROM employers WHERE id='".$id."'";
+        $this->db->query($query);
+	}
 }

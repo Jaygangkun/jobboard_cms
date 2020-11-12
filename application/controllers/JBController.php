@@ -103,6 +103,7 @@ class JBController extends CI_Controller {
 			}
 
 			$field_var_name = str_replace(' ', '_', strtolower($field['name']));
+			$field_var_name = str_replace('?', '', $field_var_name);
 
 			if(isset($_POST["custom_".$field_var_name])){
 				$field_value = $_POST["custom_".$field_var_name];

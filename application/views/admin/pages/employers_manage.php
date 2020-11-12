@@ -30,6 +30,7 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" id="site_id">
                 <div class="row mt-30">
                     <div class="col-lg-12">
                         <table id="load_employers" class="table table-bordered table-striped">

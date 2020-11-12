@@ -174,6 +174,7 @@
                             foreach($fields as $field){
                                 $field_name = $field['name'];
                                 $field_var_name = str_replace(' ', '_', strtolower($field_name));
+                                $field_var_name = str_replace('?', '', $field_var_name);
                                 ?>
                                 // var custom_<?php echo $field_var_name?> = jQuery('[name="applicant[custom_field_answers][<?php echo $field_var_name?>]"]').val();
 
@@ -217,6 +218,7 @@
                                         foreach($fields as $field){
                                             $field_name = $field['name'];
                                             $field_var_name = str_replace(' ', '_', strtolower($field_name));
+                                            $field_var_name = str_replace('?', '', $field_var_name);
                                             ?>
                                             custom_<?php echo $field_var_name?>: custom_<?php echo $field_var_name?>,
                                             <?php

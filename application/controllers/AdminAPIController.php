@@ -120,6 +120,10 @@ class AdminAPIController extends CI_Controller {
         $employers = $this->Employers->updateTS($_POST['id'], $_POST['ts_integrate'], $_POST['ts_id']);
     }
 
+    public function employerDelete(){
+        $employers = $this->Employers->delete($_POST['id']);
+    }
+
     public function fieldAdd(){
         $id = $this->Fields->add($_POST['employer_id'], $_POST['name'], $_POST['required']);
         echo json_encode(array(
