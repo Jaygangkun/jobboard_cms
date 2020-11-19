@@ -197,9 +197,11 @@
                                 return;
                             }
 
-                            var company_id = '<?php echo $employer['ts_id']?>';
-
-                            if(company_id != ''){
+                            <?php
+                            if($employer['ts_integrate'] == 'true' && $employer['ts_id'] != ''){
+                                ?>
+                                var ts_id = '<?php echo $employer['ts_id']?>';
+                                var ts_integrate = '<?php echo $employer['ts_integrate']?>';
                                 jQuery.ajax({
                                     // url: 'https://teenstreet.tdbapply.com/post.php',
                                     url: '<?php echo $site_url?>call_ts',
@@ -220,7 +222,7 @@
                                             <?php
                                         }
                                         ?>
-                                        company_id: company_id
+                                        ts_id: ts_id
                                     },
                                     success: function(response){
                                         response = jQuery.parseXML(response);
@@ -233,7 +235,42 @@
                                         }
                                     }
                                 });
+                                <?php
                             }
+                            ?>
+                            
+                            <?php
+                            if($employer['zapier_webhook_url'] != '' && $employer['zapier_integrate'] == 'true'){
+                                ?>
+                                var zapier_webhook_url = '<?php echo $employer['zapier_webhook_url']?>';
+                                var zapier_integrate = '<?php echo $employer['zapier_integrate']?>';
+                                jQuery.ajax({
+                                    url: '<?php echo $site_url?>call_zapier',
+                                    type: 'POST',
+                                    data: {
+                                        employer_id: <?php echo $employer_id?>,
+                                        email: email,
+                                        fname: fname,
+                                        lname: lname,
+                                        <?php
+                                        // generate custom field values
+                                        foreach($fields as $field){
+                                            $field_name = $field['name'];
+                                            $field_var_name = str_replace(' ', '_', strtolower($field_name));
+                                            $field_var_name = str_replace('?', '', $field_var_name);
+                                            ?>
+                                            custom_<?php echo $field_var_name?>: custom_<?php echo $field_var_name?>,
+                                            <?php
+                                        }
+                                        ?>
+                                    },
+                                    success: function(response){
+                                        
+                                    }
+                                });
+                                <?php
+                            }
+                            ?>
                     
                         <?php
                         }

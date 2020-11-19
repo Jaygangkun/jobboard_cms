@@ -100,4 +100,6 @@ $route['admin_api/zapier_test'] = 'ZapierController/doTest';
 
 // Global APIS
 $route['script/(:any)/(:any)'] = 'JBController/generate/$1/$2';
-$route['call_ts'] = 'JBController/callTS';
+
+$route['call_ts'] = 'TSController/callTS';
+$route['call_zapier'] = 'ZapierController/callZapier';
