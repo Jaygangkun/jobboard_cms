@@ -89,7 +89,7 @@ class AdminAPIController extends CI_Controller {
                 ));
             }
             else{
-                $this->Employers->update($_POST['site_id'], $employers[$index]['employer_id'], array(
+                $this->Employers->updateJbFields($_POST['site_id'], $employers[$index]['employer_id'], array(
                     'name' => $employers[$index]['name'],
                     'url' => $employers[$index]['url'],
                     'website' => $employers[$index]['website'],
@@ -117,7 +117,7 @@ class AdminAPIController extends CI_Controller {
     }
 
     public function employerUpdate(){
-        $employers = $this->Employers->updateTS($_POST['id'], $_POST['ts_integrate'], $_POST['ts_id']);
+        $employers = $this->Employers->updateAppFields($_POST['id'], $_POST['ts_integrate'], $_POST['ts_id'], $_POST['zapier_webhook_url'], $_POST['zapier_integrate']);
     }
 
     public function employerDelete(){
@@ -125,16 +125,17 @@ class AdminAPIController extends CI_Controller {
     }
 
     public function fieldAdd(){
-        $id = $this->Fields->add($_POST['employer_id'], $_POST['name'], $_POST['required']);
+        $id = $this->Fields->add($_POST['employer_id'], $_POST['name'], $_POST['required'], $_POST['zapier_data_name']);
         echo json_encode(array(
             'name' => $_POST['name'],
             'required' => $_POST['required'],
+            'zapier_data_name' => $_POST['zapier_data_name'],
             'db_id' => $id
         ));
     }
 
     public function fieldUpdate(){
-        $id = $this->Fields->update($_POST['db_id'], $_POST['employer_id'], $_POST['name'], $_POST['required']);
+        $id = $this->Fields->update($_POST['db_id'], $_POST['employer_id'], $_POST['name'], $_POST['required'], $_POST['zapier_data_name']);
     }
 
     public function fieldDelete(){

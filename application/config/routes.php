@@ -96,6 +96,8 @@ $route['admin_api/register'] = 'AdminAPIController/register';
 
 $route['admin_api/log_load'] = 'AdminAPIController/logLoad';
 
+$route['admin_api/zapier_test'] = 'ZapierController/doTest';
+
 // Global APIS
 $route['script/(:any)/(:any)'] = 'JBController/generate/$1/$2';
 $route['call_ts'] = 'JBController/callTS';

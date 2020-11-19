@@ -18,7 +18,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="field_label">Field Label</label>
+                    <label for="field_label">Jobboard Field Label</label>
                     <input type="email" class="form-control" id="field_name" placeholder="" value="">
                 </div>
                 <div class="form-group">
@@ -28,6 +28,10 @@
                             Required?
                         </label>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="field_label">Zapier Data Name</label>
+                    <input type="email" class="form-control" id="zapier_data_name" placeholder="" value="">
                 </div>
             </div>
             <div class="modal-footer">
@@ -63,6 +67,7 @@
                                         <tr>
                                             <th>Field Name</th>
                                             <th>Field Required</th>
+                                            <th>Zapier Data Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -126,6 +131,7 @@
                                         <tr>
                                             <th>Field Name</th>
                                             <th>Field Required</th>
+                                            <th>Zapier Data Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -151,6 +157,11 @@
     <div id="tp_col_name">
         <div class="field-name-wrap">
             Phone
+        </div>
+    </div>
+    <div id="tp_col_zapier_data_name">
+        <div class="zapier-data-name-wrap">
+            Test1
         </div>
     </div>
     <div id="tp_col_status_green">
@@ -199,6 +210,19 @@ load_fields_table = $("#load_fields").DataTable({
         },
         {
             "targets": 2,
+            "data": 'zapier_data_name',
+            "render": function(data, type, row, meta){
+                var tp_col_zapier_data_name = $('#tp_col_zapier_data_name').clone();
+                if(data == null){
+                    data = '';
+                }
+
+                $(tp_col_zapier_data_name).find('.zapier-data-name-wrap').text(data);
+                return $(tp_col_zapier_data_name).html()
+            }
+        },
+        {
+            "targets": 3,
             "data": 'db_id',
             "render": function(data, type, row, meta){
                 var btn_edit_html = '<button type="button" class="btn btn-info action-edit-btn btn-field-edit" id="' + data + '" row="' + meta.row + '">Edit</button>';
@@ -221,6 +245,7 @@ if(isset($fields)){
         load_fields_table.row.add({
             name: "<?php echo $field['name'] ?>",
             required: "<?php echo $field['required'] ?>",
+            zapier_data_name: "<?php echo $field['zapier_data_name'] ?>",
             db_id: "<?php echo $field['id'] ?>"
         });
         <?php

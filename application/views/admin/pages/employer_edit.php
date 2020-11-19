@@ -31,6 +31,18 @@
                             <label for="ts_id">Teenstreet Company ID</label>
                             <input type="email" class="form-control" id="ts_id" placeholder="" value="<?php echo $employer['ts_id']?>">
                         </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="zapier_integrate" <?php echo $employer['zapier_integrate'] == 'true' ? "checked": ""?>>
+                                    Zapier Webhook Integration?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ts_id">Zapier Webhook URL</label>
+                            <input type="email" class="form-control" id="zapier_webhook_url" placeholder="" value="<?php echo $employer['zapier_webhook_url']?>">
+                        </div>
                         <input type="hidden" id="id" value="<?php echo $employer['id']?>">
                         <input type="hidden" id="site_id" value="<?php echo $employer['site_id']?>">
                     </div>

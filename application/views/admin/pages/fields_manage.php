@@ -37,6 +37,7 @@
                                 <tr>
                                     <th>Employers</th>
                                     <th>Field Names</th>
+                                    <th>Zapier Webhook</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -124,6 +125,7 @@
                                 <tr>
                                     <th>Employers</th>
                                     <th>Field Names</th>
+                                    <th>Zapier Webhook</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
@@ -153,6 +155,17 @@
             <div class="employer-custom-field-row">City (required)</div>
             <div class="employer-custom-field-row">State</div>
             <div class="employer-custom-field-row">Zip</div>
+        </div>
+    </div>
+    <div id="tp_col_zapier_webhook_url">
+        <div class="zapier-webhook-url-wrap">
+        https://hooks.zapier.com/hooks/catch/2403839/olssiz2/
+        </div>
+        <div class="zapier-data-name-list">
+            <div class="zapier-data-name-row">
+                <span class="jb-field-name">Test1</span> - 
+                <span class="jb-field-name">Zapier Test1</span>
+            </div>
         </div>
     </div>
 </div>
@@ -200,13 +213,45 @@ load_employers_table = $("#load_employers").DataTable({
         },
         {
             "targets": 2,
+            "data": 'zapier_webhook_url',
+            "render": function(data, type, row, meta){
+                var tp_col_zapier = $('#tp_col_zapier_webhook_url').clone();
+                if(data == null){
+                    data = '';
+                }
+                $(tp_col_zapier).find('.zapier-webhook-url-wrap').text(data);
+
+                console.log('row:', row);
+                var fields = row['fields'];
+                var zapier_data_name_list_html = '';
+                for(var index = 0; index < fields.length; index++){
+                    var field_name = fields[index]['name'];
+                    var zapier_data_name = fields[index]['zapier_data_name'];
+                    if(zapier_data_name == '' || zapier_data_name == null){
+                        zapier_data_name = field_name;
+                        continue;
+                    }
+                    zapier_data_name_list_html += '<div class="zapier-data-name-row"><span class="jb-field-name">' + field_name + '</span> - <span class="jb-field-name">' + zapier_data_name + '</span></div>';
+                }
+
+                $(tp_col_zapier).find('.zapier-data-name-list').html(zapier_data_name_list_html);
+                return $(tp_col_zapier).html()
+            }
+        },  
+        {
+            "targets": 3,
             "data": 'db_id',
             "render": function(data, type, row, meta){
                 var btn_edit_html = '<a type="button" href="/admin/fields_edit/' + data + '" class="btn btn-info action-edit-btn">Edit</a>';
-                var btn_delete_html = '<button type="button" class="btn btn-danger btn-employer-delete" id="' + data + '">Delete</button>';
+                var btn_delete_html = '<button type="button" class="btn btn-danger btn-fields-delete" id="' + data + '">Delete</button>';
                 btn_delete_html = '';
+                var btn_zapier_test_html = '<button type="button" class="btn btn-success btn-zapier-test" id="' + data + '">Zapier Test</button>';
+
+                if(row['zapier_webhook_url'] == null || row['zapier_webhook_url'] == ''){
+                    btn_zapier_test_html = '';
+                }
                 
-                return btn_edit_html + btn_delete_html;
+                return btn_edit_html + btn_delete_html + btn_zapier_test_html;
             }
         }
     ]

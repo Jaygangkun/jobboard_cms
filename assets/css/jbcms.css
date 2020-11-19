@@ -35,3 +35,11 @@
 .action-edit-btn{
     margin-right: 5px;
 }
+
+.loading{
+    overflow: hidden;
+}
+
+.box>.overlay, .overlay-wrapper>.overlay, .box>.loading-img, .overlay-wrapper>.loading-img{
+    height: 100vh;
+}

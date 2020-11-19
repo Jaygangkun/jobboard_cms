@@ -275,6 +275,8 @@
                         },
                         ts_integrate: employers[index]['ts_integrate'],
                         ts_id: employers[index]['ts_id'],
+                        zapier_integrate: employers[index]['zapier_integrate'],
+                        zapier_webhook_url: employers[index]['zapier_webhook_url'],
                         db_id: employers[index]['id']
                     });
                 }
@@ -293,7 +295,9 @@
             data: {
                 id: $('#id').val(),
                 ts_integrate: $('#ts_integrate').is(':checked'),
-                ts_id: $("#ts_id").val()
+                ts_id: $("#ts_id").val(),
+                zapier_webhook_url: $("#zapier_webhook_url").val(),
+                zapier_integrate: $('#zapier_integrate').is(':checked'),
             },
             success: function(response){
                 alert("Successfully Updated!");
@@ -349,6 +353,7 @@
                             location: employers[index]['location']
                         },
                         fields: employers[index]['fields'],
+                        zapier_webhook_url: employers[index]['zapier_webhook_url'],
                         db_id: employers[index]['id']
                     });
                 }
@@ -365,6 +370,7 @@
         $('#fields_dlg_title').text('New Custom Field');
         $('#field_name').val('');
         $('#field_required').removeAttr('checked');
+        $('#zapier_data_name').val('');
 
         $('#btn_field_add').show();
         $('#btn_field_update').hide();
@@ -388,6 +394,7 @@
                 employer_id: $('#employer_id').val(),
                 name: $('#field_name').val(),
                 required: $('#field_required').is(':checked'),
+                zapier_data_name: $('#zapier_data_name').val(),
             },
             success: function(response){
                 alert("Successfully Added!");
@@ -395,6 +402,7 @@
                 load_fields_table.row.add({
                     name: response['name'],
                     required: response['required'],
+                    zapier_data_name: response['zapier_data_name'],
                     db_id: response['id']
                 });
                 load_fields_table.draw(false);
@@ -422,6 +430,7 @@
                 employer_id: $('#employer_id').val(),
                 name: $('#field_name').val(),
                 required: $('#field_required').is(':checked'),
+                zapier_data_name: $('#zapier_data_name').val(),
             },
             success: function(response){
                 alert("Successfully Updated!");
@@ -434,7 +443,6 @@
 
         var row = parseInt($(this).attr('row'));
         var row_data = load_fields_table.row(row).data();
-        console.log(row_data);
         $('#fields_dlg_title').text('Edit Custom Field');
         $('#field_name').val(row_data['name']);
         if(row_data['required'] == 'true'){
@@ -443,6 +451,7 @@
         else{
             $('#field_required').prop('checked', false);
         }
+        $('#zapier_data_name').val(row_data['zapier_data_name']);
 
         $('#btn_field_add').hide();
         $('#btn_field_update').show();
@@ -470,6 +479,28 @@
             })
         }
         
+    })
+
+    $(document).on('click', '.btn-zapier-test', function(){
+        $('body').addClass('loading');
+        $.ajax({
+            url: '/admin_api/zapier_test',
+            type: 'POST',
+            data: {
+                id: $(this).attr('id'),
+            },
+            success: function(response){
+                response = JSON.parse(response);
+                if(response['success']){
+                    alert('Successfully Zapier Webhook Test!');
+                }
+                else{
+                    alert('Failed Zapier Webhook Test!');
+                }
+                
+                $('body').removeClass('loading');
+            }
+        })
     })
 
     // Login Page

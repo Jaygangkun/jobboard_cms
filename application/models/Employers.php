@@ -21,7 +21,7 @@ Class Employers extends CI_Model
 		return false;
 	}
 
-	public function update($site_id, $employer_id, $data){
+	public function updateJbFields($site_id, $employer_id, $data){
 		$query = "UPDATE employers SET `name`='".$this->db->escape_str($data['name'])."', `url`='".$this->db->escape_str($data['url'])."', `website`='".$this->db->escape_str($data['website'])."', `logo`='".$this->db->escape_str($data['logo'])."', `email`='".$this->db->escape_str($data['email'])."', `phone`='".$this->db->escape_str($data['phone'])."', `address`='".$this->db->escape_str($data['address'])."', `city`='".$this->db->escape_str($data['city'])."', `state`='".$this->db->escape_str($data['state'])."', `zip`='".$this->db->escape_str($data['zip'])."', `country`='".$this->db->escape_str($data['country'])."', `location`='".$this->db->escape_str($data['location'])."', `hidden`='".$this->db->escape_str($data['hidden'])."', `approved`='".$this->db->escape_str($data['approved'])."', `active_jobs_count`='".$this->db->escape_str($data['active_jobs_count'])."', `created_at`='".$this->db->escape_str($data['created_at'])."' WHERE site_id='".$site_id."' AND employer_id='".$employer_id."'";
 
 		$this->db->query($query);
@@ -41,8 +41,8 @@ Class Employers extends CI_Model
 		return $query_result;
 	}
 
-	public function updateTS($id, $ts_integrate, $ts_id){
-		$query = "UPDATE employers SET `ts_integrate`='".$this->db->escape_str($ts_integrate)."', `ts_id`='".$this->db->escape_str($ts_id)."' WHERE id='".$id."'";
+	public function updateAppFields($id, $ts_integrate, $ts_id, $zapier_webhook_url, $zapier_integrate){
+		$query = "UPDATE employers SET `ts_integrate`='".$this->db->escape_str($ts_integrate)."', `ts_id`='".$this->db->escape_str($ts_id)."', `zapier_webhook_url`='".$this->db->escape_str($zapier_webhook_url)."', `zapier_integrate`='".$this->db->escape_str($zapier_integrate)."' WHERE id='".$id."'";
 
 		$this->db->query($query);
 	}

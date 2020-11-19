@@ -38,7 +38,9 @@
                                 <tr>
                                     <th>Employers</th>
                                     <th>Teenstreet</th>
-                                    <th>Company ID</th>
+                                    <th>TS Company ID</th>
+                                    <th>Zapier</th>
+                                    <th>Zapier Webhook URL</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -132,7 +134,9 @@
                                 <tr>
                                     <th>Employers</th>
                                     <th>Teenstreet</th>
-                                    <th>Company ID</th>
+                                    <th>TS Company ID</th>
+                                    <th>Zapier</th>
+                                    <th>Zapier Webhook URL</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
@@ -159,6 +163,11 @@
     <div id="tp_col_tsid">
         <div class="employer-ts-id-wrap">
             13500
+        </div>
+    </div>
+    <div id="tp_col_zapier_webhook_url">
+        <div class="zapier-webhook-url-wrap">
+        https://hooks.zapier.com/hooks/catch/2403839/olssiz2/
         </div>
     </div>
     <div id="tp_col_status_green">
@@ -219,6 +228,37 @@ load_employers_table = $("#load_employers").DataTable({
         },
         {
             "targets": 3,
+            "data": 'zapier_integrate',
+            "render": function(data, type, row, meta){
+                var tp_col_status_green = $('#tp_col_status_green').clone();
+                var tp_col_status_red = $('#tp_col_status_red').clone();
+
+                var tp_col_status = '';
+
+                if(data == 'true'){
+                    tp_col_status = tp_col_status_green;
+                }
+                else{
+                    tp_col_status = tp_col_status_red;
+                }            
+                
+                return $(tp_col_status).html()
+            }
+        },        
+        {
+            "targets": 4,
+            "data": 'zapier_webhook_url',
+            "render": function(data, type, row, meta){
+                var tp_col_zapier = $('#tp_col_zapier_webhook_url').clone();
+                if(data == null){
+                    data = '';
+                }
+                $(tp_col_zapier).find('.zapier-webhook-url-wrap').text(data);
+                return $(tp_col_zapier).html()
+            }
+        },   
+        {
+            "targets": 5,
             "data": 'db_id',
             "render": function(data, type, row, meta){
                 var btn_edit_html = '<a type="button" href="/admin/employer_edit/' + data + '" class="btn btn-info action-edit-btn">Edit</a>';
@@ -247,6 +287,8 @@ if(isset($employers)){
             },
             ts_integrate: "<?php echo $employer['ts_integrate'] ?>",
             ts_id: "<?php echo $employer['ts_id'] ?>",
+            zapier_integrate: "<?php echo $employer['zapier_integrate']?>",
+            zapier_webhook_url: "<?php echo $employer['zapier_webhook_url']?>",
             db_id: "<?php echo $employer['id'] ?>"
         });
         <?php

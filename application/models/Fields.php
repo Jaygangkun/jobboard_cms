@@ -5,8 +5,8 @@ if (!defined('BASEPATH'))
 	
 Class Fields extends CI_Model
 {
-	public function add($employer_id, $name, $required){
-		$query = "INSERT INTO fields(`employer_id`, `name`, `required`) VALUES('".$employer_id."', '".$name."', '".$required."')";
+	public function add($employer_id, $name, $required, $zapier_data_name){
+		$query = "INSERT INTO fields(`employer_id`, `name`, `required`, `zapier_data_name`) VALUES('".$employer_id."', '".$name."', '".$required."', '".$zapier_data_name."')";
 		$this->db->query($query);
 		return $this->db->insert_id();
 	}
@@ -18,8 +18,8 @@ Class Fields extends CI_Model
 		return $query_result;
 	}
 
-	public function update($id, $employer_id, $name, $required){
-		$query = "UPDATE fields SET employer_id='".$employer_id."', name='".$name."', required='".$required."' WHERE id='".$id."'";
+	public function update($id, $employer_id, $name, $required, $zapier_data_name){
+		$query = "UPDATE fields SET employer_id='".$employer_id."', name='".$name."', required='".$required."', zapier_data_name='".$zapier_data_name."' WHERE id='".$id."'";
         $this->db->query($query);
 	}
 
