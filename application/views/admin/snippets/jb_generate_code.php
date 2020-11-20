@@ -193,9 +193,9 @@
                             }
                             ?>
                             
-                            if( jQuery('#applicant_consents_attributes_0_consented').is(':checked') == false){
-                                return;
-                            }
+                            // if( jQuery('#applicant_consents_attributes_0_consented').is(':checked') == false){
+                            //     return;
+                            // }
 
                             <?php
                             if($employer['ts_integrate'] == 'true' && $employer['ts_id'] != ''){
