@@ -56,7 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 // Pages
 // $route['admin/setting'] = 'AdminController/setting';
 $route['admin/login'] = 'AdminController/login';
-$route['admin/register'] = 'AdminController/register';
+// $route['admin/register'] = 'AdminController/register';
 $route['admin/employers_import'] = 'AdminController/employersImport';
 $route['admin/employers'] = 'AdminController/employers';
 $route['admin/employers/([0-9]+)'] = 'AdminController/siteEmployers/$1';

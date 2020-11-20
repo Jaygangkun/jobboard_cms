@@ -65,10 +65,6 @@
                         <button type="button" class="btn btn-primary btn-block btn-flat" id="btn_login">Log In</button>
                     </div>
                 </div>
-                <div class="mt-20">
-                    <!-- <a href="#">I forgot my password</a><br> -->
-                    <a href="/admin/register" class="text-center">Register</a>
-                </div>
             </div>
             <!-- /.login-box-body -->
         </div>
