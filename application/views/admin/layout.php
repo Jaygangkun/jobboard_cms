@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Jobboard CMS</title>
+		<title>Keloh CMS</title>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<!-- Bootstrap 3.3.6 -->
@@ -116,7 +116,7 @@
                                 </span>
 							</a>
 							<ul class="treeview-menu">
-								<li class="<?php echo $sub_menu == 'employers_import' ? 'active' : '' ?>"><a href="/admin/employers_import"><i class="fa fa-circle-o"></i> Import From Jobboard</a></li>
+								<li class="<?php echo $sub_menu == 'employers_import' ? 'active' : '' ?>"><a href="/admin/employers_import"><i class="fa fa-circle-o"></i> Import From Jobboard.io</a></li>
 								<li class="<?php echo $sub_menu == 'employers_manage' ? 'active' : '' ?>"><a href="/admin/employers"><i class="fa fa-circle-o"></i> Manage</a></li>
 							</ul>
                         </li>
@@ -148,7 +148,7 @@
 			</aside>
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
-                <?php 
+                <?php
                 $this->view($view);
                 ?>
 				<div class="overlay-wrapper">
